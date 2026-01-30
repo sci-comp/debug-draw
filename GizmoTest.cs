@@ -1,3 +1,4 @@
+#if TOOLS
 using Godot;
 
 namespace World
@@ -40,7 +41,8 @@ namespace World
             }
         }
 
-    }    
-    
-} 
+    }
+
+}
+#endif 
 

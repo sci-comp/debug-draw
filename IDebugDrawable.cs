@@ -1,3 +1,4 @@
+#if TOOLS
 namespace World
 {
     public interface IDebugDrawable
@@ -6,4 +7,5 @@ namespace World
     }
 
 }
+#endif
 
