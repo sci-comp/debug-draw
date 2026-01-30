@@ -1,3 +1,4 @@
+#if TOOLS
 using Godot;
 
 namespace World
@@ -39,8 +40,7 @@ namespace World
                 DebugDraw.Line(Vector3.Zero, Vector3.Forward * 5, Colors.Yellow);
             }
         }
-
-    }    
-    
-} 
+    }
+}
+#endif 
 
