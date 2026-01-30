@@ -1,6 +1,7 @@
 #if TOOLS
 
 using Godot;
+using System.Collections.Generic;
 
 public partial class DebugDrawGizmo : EditorNode3DGizmo
 {
@@ -12,31 +13,32 @@ public partial class DebugDrawGizmo : EditorNode3DGizmo
         {
             return;
         }
-            
+
         DebugDraw.Clear();
         drawable.DrawDebug();
-        
+
         var material = GetPlugin().GetMaterial("lines", this);
-        
+        Transform3D toLocal = GetNode3D().GlobalTransform.AffineInverse();
+
         foreach (var line in DebugDraw.Lines)
         {
-            var points = new Vector3[] { line.From, line.To };
+            var points = new Vector3[] { toLocal * line.From, toLocal * line.To };
             AddLines(points, material, false, line.Color);
         }
 
         foreach (var box in DebugDraw.Boxes)
         {
-            DrawBox(box.Center, box.Size, box.Color, material);
+            DrawBox(toLocal * box.Center, box.Size, box.Color, material);
         }
 
         foreach (var sphere in DebugDraw.Spheres)
         {
-            DrawSphere(sphere.Center, sphere.Radius, sphere.Color, material);
+            DrawSphere(toLocal * sphere.Center, sphere.Radius, sphere.Color, material);
         }
 
         foreach (var point in DebugDraw.Points)
         {
-            DrawPoint(point.Position, point.Size, point.Color, material);
+            DrawPoint(toLocal * point.Position, point.Size, point.Color, material);
         }
     }
 
@@ -126,6 +128,4 @@ public partial class DebugDrawGizmo : EditorNode3DGizmo
     }
 }
 
-
 #endif
-
